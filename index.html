@@ -1117,6 +1117,25 @@ html.booting:not(.logo-ready) .hero h1 { visibility: hidden; }
 @media (max-width: 520px) { .page .seat-ph { width: 112px; height: 112px; } }
 @media (prefers-reduced-motion: reduce) { .seat-digits text { transition: none; } }
 
+/* join: where you'll work */
+.page .join-where { margin: 0 0 1.2em; }
+.page .join-where > p:first-child { margin: 0 0 1em; }
+.page .join-where-h { margin: 0 0 0.4em; font-size: inherit; }
+.page .join-where > p { margin: 0 0 1.1em; }
+.where-photos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.where-photos figure { margin: 0; }
+.where-photos img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 8px; background: var(--rule); }
+.where-photos figcaption { margin-top: 0.45em; font-size: 0.8em; line-height: 1.35; color: var(--muted); }
+.page .where-credit { margin: 0.5em 0 0; font-size: 0.72em; color: var(--muted); }
+/* phones: a row you swipe through, so the photos don't push the text a whole screen down */
+@media (max-width: 640px) {
+  .where-photos { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 78%; gap: 12px;
+    overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    margin: 0 calc(-1 * clamp(18px, 4vw, 40px)); padding: 0 clamp(18px, 4vw, 40px); scroll-padding: 0 clamp(18px, 4vw, 40px); }
+  .where-photos::-webkit-scrollbar { display: none; }
+  .where-photos figure { scroll-snap-align: start; }
+  .where-photos img { aspect-ratio: 3 / 2; }
+}
 </style>
 </head>
 <body>
@@ -2582,7 +2601,8 @@ html.booting:not(.logo-ready) .hero h1 { visibility: hidden; }
       return html + '<p class="muted" style="margin-top:1.4em;font-size:16px">* equal contribution. Full list on <a href="https://scholar.google.com/citations?user=vqK-2nEAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>.</p>';
     },
     join: function () {
-      return '<p>We are looking for people at all levels to join the lab when it opens in September 2027. Ideally, candidates will have experience in at least one of the following areas and an interest in receiving training in another:</p>' +
+      return '<section class="join-where"><p>The lab is part of the <a href="https://parisbraininstitute.org/" target="_blank" rel="noopener">Paris Brain Institute</a>, an interdisciplinary research institute in central Paris with state-of-the-art neuroimaging facilities (7T and 3T MRI, MEG) and close ties to Pitié-Salpêtrière, the largest neurology center in Europe. We will be based at its <a href="https://parisbraininstitute.org/center-artificial-intelligence-and-data-science" target="_blank" rel="noopener">Center for Artificial Intelligence and Data Science</a>, which opened in 2025 a five-minute walk from the Institute’s main building and brings together experts in machine learning and neuroscience.</p><div class="where-photos"><figure><img src="images/center-exterior.jpg" width="900" height="600" loading="lazy" alt="The glass front of the Center for Artificial Intelligence and Data Science on rue du Chevaleret"></figure><figure><img src="images/center-interior.jpg" width="900" height="675" loading="lazy" alt="A talk in the center’s glass-roofed atrium"></figure><figure><img src="images/institute.jpg" width="800" height="512" loading="lazy" alt="The Paris Brain Institute’s main building at dusk"></figure></div><p class="where-credit">Photos: Paris Brain Institute</p></section>' +
+        '<p>We are looking for people at all levels to join the lab when it opens in September 2027. Ideally, candidates will have experience in at least one of the following areas and an interest in receiving training in another:</p>' +
         '<ul class="qs">' +
         '<li><b>computational modeling</b><span class="muted qs-eg">e.g., reinforcement learning, probability theory, Bayesian statistics, neural network modeling</span></li>' +
         '<li><b>neuroimaging</b><span class="muted qs-eg">e.g., fMRI, MEG, neural decoding, representational similarity analysis</span></li>' +
@@ -2592,7 +2612,7 @@ html.booting:not(.logo-ready) .hero h1 { visibility: hidden; }
         '<p>Applicants should be fluent in at least one programming language (preferably Python). If you are excited about our work but unsure whether you meet every qualification, we encourage you to get in touch anyway.</p>' +
         '<div class="rows join-rows">' +
         '<span class="head">postdocs</span><span>We are hiring postdoctoral researchers to start in September 2027. Funding is available, and we are also happy to support applications for independent fellowships, such as the Marie Skłodowska-Curie Postdoctoral Fellowships or EMBO Postdoctoral Fellowships. Please email <a class="em" href="#" data-e="recruit+postdoc|cmd-lab.eu">email</a> to express your interest.' +
-        '<br><span class="muted join-note">Applicants should hold a PhD, or expect to complete one, by the start of the position.</span></span>' +
+        '</span>' +
         '<span class="head">lab manager</span><span>We are hiring a lab manager to start in September 2027. This role will involve running eyetracking and neuroimaging studies, analyzing data from these studies, building software tools, and helping with administrative tasks for the lab. Please email <a class="em" href="#" data-e="recruit+staff|cmd-lab.eu">email</a> to express your interest.' +
         '<br><span class="muted join-note">Applicants should hold at least a Bachelor’s degree in a relevant field by the start of the position and have professional working proficiency in French, as the role will involve working directly with study participants.</span></span>' +
         '<span class="head">PhD students</span><span>We are recruiting PhD students through the <a href="https://ed3c.sorbonne-universite.fr/en/led-3c/general-presentation" target="_blank" rel="noopener">brain, cognition, and behavior doctoral program</a>. We recommend getting in touch by early spring 2027. Please email <a class="em" href="#" data-e="recruit+phd|cmd-lab.eu">email</a> to express your interest.' +
