@@ -1048,6 +1048,9 @@ html.booting:not(.logo-ready) .hero h1 { visibility: hidden; }
   transform 2s cubic-bezier(0.16, 0.8, 0.24, 1) calc(var(--d) * 1.8); }
 /* publications: on wide screens the timeline keeps a comfortable reading width instead of filling the page */
 .page .tl, .page .tl-earlier { max-width: 900px; }
+/* publications: on wide screens the filter labels keep one size when hovered or chosen, so none of them shift
+   (a fixed 18px on :hover and the chosen tag was overriding the screen-scaled size) */
+@media (min-width: 1100px) { .tl-filters button:hover, .tl-filters button[aria-pressed="true"] { font-size: clamp(16px, 0.3vw + 12.7px, 18px); } }
 /* the research panel follows the three ways */
 .page .st-research { padding-top: 2vh; }
 /* the topic names stay where they were (above each title), set as large as the ideas above */
