@@ -1137,6 +1137,8 @@ html.in-page, html.in-page body { overscroll-behavior-y: none; }
   .where-photos img { aspect-ratio: 3 / 2; }
 }
 </style>
+<script>window.goatcounter = { no_onload: true };</script>
+<script data-goatcounter="https://cmd-lab.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
 <div class="scrollbar" id="scrollbar" aria-hidden="true">
@@ -2767,6 +2769,18 @@ html.in-page, html.in-page body { overscroll-behavior-y: none; }
     return name === 'research' ? 'about' : name;  // research now lives on the home page
   }
 
+  var tq = [];
+  function track(path) {
+    if (!/(^|\.)cmd-lab\.eu$/.test(location.hostname) || track.last === path) return;
+    track.last = path;
+    var gc = window.goatcounter;
+    if (gc && gc.count) gc.count({ path: path }); else tq.push(path);
+  }
+  (function flush() {              // views from before the counting script had loaded
+    var gc = window.goatcounter;
+    if (gc && gc.count) { while (tq.length) gc.count({ path: tq.shift() }); return; }
+    if (!flush.n) flush.n = 0; if (++flush.n < 40) setTimeout(flush, 500);
+  })();
   function setActive(name) {
     for (var i = 0; i < navLinks.length; i++) {
       if (navLinks[i].getAttribute('data-cmd') === name) navLinks[i].setAttribute('aria-current', 'page');
@@ -2804,6 +2818,7 @@ html.in-page, html.in-page body { overscroll-behavior-y: none; }
       // Tab title follows the page: "research | cmd lab"; the about page keeps the full title
       document.title = name === 'about' ? BASE_TITLE : name + ' | cmd lab';
       document.documentElement.classList.toggle('on-about', name === 'about');
+      track('/' + name);
     }
 
     screen.innerHTML = '';
@@ -2953,7 +2968,7 @@ html.in-page, html.in-page body { overscroll-behavior-y: none; }
       m.style.transition = 'none'; m.style.transform = '';
       var lf = document.getElementById('landing'); if (lf) { lf.style.transition = ''; lf.style.opacity = ''; }
       screen.innerHTML = ''; screen.style.minHeight = '';
-      setActive(null); document.title = BASE_TITLE;
+      setActive(null); document.title = BASE_TITLE; track('/');
       window.scrollTo(0, 0);
       root.classList.add('land-only'); root.classList.remove('gliding');
     };
@@ -3096,7 +3111,7 @@ html.in-page, html.in-page body { overscroll-behavior-y: none; }
   function start(fromBoot) {
     var initial = (location.hash || '').slice(1);
     if (initial === 'pubs') initial = 'publications';
-    if (MAIN.indexOf(initial) === -1) return;          // just the landing
+    if (MAIN.indexOf(initial) === -1) { track('/'); return; }          // just the landing
     execute(initial, { noHash: true, instant: true });
   }
 
